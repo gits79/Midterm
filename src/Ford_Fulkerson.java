@@ -67,7 +67,7 @@ public class Ford_Fulkerson {
 
 
     public static void main(String[] args) {
-        
+
         //0에서 가는 경우
         c[0][1] = 16;
         c[0][2] = 13;
