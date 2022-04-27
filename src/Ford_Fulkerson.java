@@ -13,7 +13,7 @@ public class Ford_Fulkerson {
 
 
 
-    static void maxFlow(int soucre,int sink){
+    static int maxFlow(int soucre,int sink){
         // 큐 방문체크 선언
        queue = new LinkedList<>();
        d = new int[MAX];
@@ -62,7 +62,7 @@ public class Ford_Fulkerson {
         }
 
 
-
+        return result;
     }
 
 
@@ -100,11 +100,6 @@ public class Ford_Fulkerson {
         c[5][4] = -4;
 
 
-
-
-
-
-        maxFlow(0,5);
-        System.out.println("최대 유량은 "+result);
+        System.out.println("최대 유량은 "+maxFlow(0,5));
     }
 }
