@@ -8,9 +8,9 @@
 
 * 유량 네트워크의 속성
     1. 용량 제한 속성 : 유량은 그 간선의 용량을 초과할 수 없다\
-     f(u,v) $\leq$ c(u,v)
+     f(u,v) ≤ c(u,v)
     2. 유량의 보존 : 소스와 싱크를 제외한 정점에는 들어오는 유량과 나가는 유량은 같다\
-        $\sum$ v $\in$ V  f(u,v) = 0
+        ∑ v ∈ V  f(u,v) = 0
 
     3. 유량의 대칭성 : 유량이 u에서 v로 흐르면 음수의 유량이 흐르는 것과 동일\
         f(u,v) = - f(u,v)
@@ -21,6 +21,7 @@
 
 
 * 주어진 문제
+
 ![img](https://velog.velcdn.com/images%2Fgeunwoobaek%2Fpost%2Fe2cf2a36-16bd-4890-9dc9-30660fde6177%2Fimage.png)
 <br/>
 <br/>
@@ -66,8 +67,7 @@ public class Ford_Fulkerson {
 
 
 
-
-    static void maxFlow(int soucre,int sink){
+    static int maxFlow(int soucre,int sink){
         // 큐 방문체크 선언
        queue = new LinkedList<>();
        d = new int[MAX];
@@ -116,7 +116,7 @@ public class Ford_Fulkerson {
         }
 
 
-
+        return result;
     }
 
 
@@ -153,10 +153,8 @@ public class Ford_Fulkerson {
         c[3][4] = -7;
         c[5][4] = -4;
 
-
-
-        maxFlow(0,5);
-        System.out.println("최대 유량은 "+result);
+        
+        System.out.println("최대 유량은 "+maxFlow(0,5));
     }
 }
 
@@ -165,6 +163,7 @@ public class Ford_Fulkerson {
 <br/>
 
 **결과 화면**
+
 ![img](result.png)
 
 #
