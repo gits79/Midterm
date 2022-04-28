@@ -20,7 +20,7 @@
 <br/>
 
 
-* 주어진 문제
+*주어진 문제*
 
 ![img](https://velog.velcdn.com/images%2Fgeunwoobaek%2Fpost%2Fe2cf2a36-16bd-4890-9dc9-30660fde6177%2Fimage.png)
 <br/>
@@ -37,10 +37,19 @@ c(3,5) - f(3,5) = 20  ,  min(16,12,20) = 12
  2번과정에서 찾은 최대 flow를 적용하고 1~3번을 증가 경로를\
  더이상 찾지 못할때 까지 반복합니다.
  <br/>
+ </br>
+
+**포드 풀커슨 알고리즘의 수도코드**
+
+![img](https://i.imgur.com/Bq1IvoA.png)
+
+ <br/>
  <br/>
 
 
- *최종 최대 유량 값
+ *최종 최대 유량 값*
+ </br>
+
  ![img2](https://velog.velcdn.com/images%2Fgeunwoobaek%2Fpost%2F593f907e-d460-481f-93cb-679d7ca248cb%2Fimage.png)
 
  증가 경로를 찾을 때 코드는 DFS가 아닌 BFS를 사용하였으며 그 이유는 밑에\
@@ -169,22 +178,44 @@ public class Ford_Fulkerson {
 #
 <br/>
 
-## ***<span style="color:skyblue">포드 풀커슨 알고리즘의 시간 복잡도</span>***
+## ***<span style="color:skyblue">포드 풀커슨 알고리즘의 시간 복잡도 및 문제점</span>***
 
 포드 풀커슨 알고리즘은 DFS를 통한 구현입니다.
 ![img3](https://mblogthumb-phinf.pstatic.net/MjAxODA2MTNfNjcg/MDAxNTI4ODc5NjQ5ODY3.DTVqJxy43or9FVceZj7OkJ217FqZY1tNRIY2MTfQFP8g.6qfAtiDRAJuxU2lWe_lwbpp-f09pPp7lt1qM-dXDjO8g.PNG.jh20s/image.png?type=w800)
 
-만약 s->1->2->t 경로를 찾아 flow를 흘려보내면 maxflow는 1이됩니다.\
-다시 s->2->1->t 경로로 1을 흘려보내면 또 s->1->2->t 흘려보내 \
+위의 예제의 경우 만약 s->1->2->t 경로를 찾아 flow를 흘려보내면 maxflow는 1이됩니다.\
+다시 s->2->1->t 경로로 1을 흘려보내면 2->1은 역간선 1->2가 흐를때 -1이되어 0/1로 초기화 되고\
+ 또 s->1->2->t 흘려보내 
 증가경로 한개당 플로우 1밖에 보낼 수 없습니다.\
-그래서 엣지의 수가 더 많을 경우 시간복잡도는 O(Ef) 입니다.  E:간선의 갯수, f : 최대유량\
-`시간 복잡도 O(Ef)`
+그래서 엣지의 수가 더 많을 경우 시간복잡도는 O(Ef) 입니다.\
+따라서 포드 풀커슨 알고리즘으로는 최대 유량을 구하기에는 최악의 경우의 수가 있습니다.
+
+`시간 복잡도 O((|E|+|V|)f)`\
+ E:간선의 갯수, V: 정점의 갯수, f : 최대유량
+ </br>
+
+ </br>
 
 
-## ***<span style="color:skyblue">에드먼드 카프 알고리즘의 시간 복잡도</span>***
 
-시간 복잡도를 낮추기 위해 DFS를 BFS로 변경한 것이 바로 에드먼트 카프 알고리즘입니다.\
-애드몬드 카프 알고리즘의 시간복잡도는 정확하게는 min(O(Ef), O(VE^2))입니다.\
- 간선은 복잡한 그래프지만 흘려야하는 유량(f)이 적으면 O(Ef) < O(VE^2) 가 될 수 있기 때문입니다.\
-`시간 복잡도 min(O(Ef),O(VE^2))`
+## ***<span style="color:skyblue">포드 풀커슨 알고리즘의 해결책</span>***
+</br>
 
+### *<span style="color:skyblue">에드먼드 카프 알고리즘</span>*
+
+앞서 얘기한 최악의 경우의 수를 피하기 위해 나온 알고리즘이 에드먼드 카프 알고리즘입니다.\
+이 알고리즘에는 유량 상쇄라는 개념이 들어가고 BFS탐색을 사용합니다.\
+ 유량상쇄는 기존의 간선에 반대방향으로 음의 유량도 흘려보내는 것입니다. 이렇게 음의 방향으로도 유량을 보냄으로써 잔여 용량이 생겨 추가적인 경로 탐색이 가능해집니다.
+
+애드몬드 카프 알고리즘의 시간복잡도는 정확하게는 min(O((|E|+|V|)f), O(VE^2))입니다.\
+ 간선은 복잡한 그래프지만 흘려야하는 유량(f)이 적으면 O((|E|+|V|)f) < O(VE^2) 가 될 수 있기 때문입니다.\
+ </br>
+`시간 복잡도 min( O((|E|+|V|)f),O(VE^2))`
+
+
+#
+</br>
+
+## <span style="color:#aaaaff">그렇다면 에드먼드 카프 알고리즘이 항상 성능이 좋은가?</span>
+
+* 문제에 Flow값이 적고, Edge가 많으면 오히려 에드몬드카프가 더 느릴 수 있습니다.
