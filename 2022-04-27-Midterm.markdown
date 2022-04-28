@@ -216,6 +216,4 @@ public class Ford_Fulkerson {
 #
 </br>
 
-## <span style="color:#aaaaff">그렇다면 에드먼드 카프 알고리즘이 항상 성능이 좋은가?</span>
-
-* 문제에 Flow값이 적고, Edge가 많으면 오히려 에드몬드카프가 더 느릴 수 있습니다.
+### 이상으로 마치겠습니다.
